@@ -133,10 +133,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // health decay
-        if (count >= 1)
+        if (count >= 0.5)
         {
             count = 0;
-            ChangeHealth(-1); // SET VALUE
+            ChangeHealth(-5); // SET VALUE
         }
         else
         {
@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
         // enemy contact
         if (other.gameObject.CompareTag("Enemy")) // SET TAG
         {
-            ChangeHealth(-1); // SET VALUE
+            ChangeHealth(-2); // SET VALUE
         }
     }
 
@@ -213,8 +213,7 @@ public class PlayerController : MonoBehaviour
         // ending
         if (other.gameObject.CompareTag("Ending")) // SET TAG
         {
-            FindObjectOfType<ScoreManager>().Win();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+            SceneManager.LoadScene("Win");
         }
     }
     void ChangeHealth(int amount)
@@ -222,8 +221,7 @@ public class PlayerController : MonoBehaviour
         currentHealth += amount;
         if (currentHealth <= 0)
         {
-            FindObjectOfType<ScoreManager>().GameOver();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene("GameOver");
         }
         healthText.text = "HEALTH: " + currentHealth.ToString();
     }
